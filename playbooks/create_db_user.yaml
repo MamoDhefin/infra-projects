@@ -1,6 +1,6 @@
 ---
 - name: Create PostgreSQL user and DB
-  hosts: db_worker
+  hosts: Worker DB
   become: yes
   vars:
     db_name: "awxdb1"
