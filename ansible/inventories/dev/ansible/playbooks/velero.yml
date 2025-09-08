@@ -1,4 +1,0 @@
-- name: Setup Velero Backup
-  hosts: velero
-  roles:
-    - velero
