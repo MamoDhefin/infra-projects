@@ -1,0 +1,21 @@
+---
+- name: Create PostgreSQL user and DB
+  hosts: db_worker
+  become: yes
+  vars:
+    db_name: "awxdb1"
+    db_user: "awxuser1"
+    db_pass: "awxpass1"
+  tasks:
+    - name: Ensure PostgreSQL database exists
+      community.postgresql.postgresql_db:
+        name: "{{ db_name }}"
+        state: present
+
+    - name: Ensure PostgreSQL user exists
+      community.postgresql.postgresql_user:
+        name: "{{ db_user }}"
+        password: "{{ db_pass }}"
+        priv: "{{ db_name }}:ALL"
+        state: present
+

@@ -1,0 +1,4 @@
+- name: Deploy AWX
+  hosts: awx
+  roles:
+    - awx
