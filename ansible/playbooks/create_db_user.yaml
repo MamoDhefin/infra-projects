@@ -1,21 +1,26 @@
 ---
-- name: Create PostgreSQL user and DB
-  hosts: db_worker
+- name: Create new PostgreSQL user
+  hosts: Worker_DB
   become: yes
   vars:
-    db_name: "awxdb1"
-    db_user: "awxuser1"
-    db_pass: "awxpass1"
+    db_name: "awxdb"              # nama database
+    new_db_user: "awxuser2"       # user baru
+    new_db_pass: "awxpass2"       # password user baru
+    login_user: "awxuser"         # user lama yang punya permission
+    login_password: "awxpass"     # password user lama
+    login_host: "192.168.217.131" # host worker DB
   tasks:
-    - name: Ensure PostgreSQL database exists
-      community.postgresql.postgresql_db:
-        name: "{{ db_name }}"
-        state: present
-
     - name: Ensure PostgreSQL user exists
       community.postgresql.postgresql_user:
-        name: "{{ db_user }}"
-        password: "{{ db_pass }}"
+        name: "{{ new_db_user }}"
+        password: "{{ new_db_pass }}"
         priv: "{{ db_name }}:ALL"
         state: present
+        login_user: "{{ login_user }}"
+        login_password: "{{ login_password }}"
+        login_host: "{{ login_host }}"
+
+    - name: Show user created
+      debug:
+        msg: "User {{ new_db_user }} created successfully in database {{ db_name }}"
 
