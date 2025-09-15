@@ -1,0 +1,24 @@
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+  namespace: awx
+spec:
+  service_type: nodeport   # atau loadbalancer kalau ada
+  ingress_type: none
+  hostname: awx.example.com
+
+  postgres_configuration_secret: awx-postgres-configuration
+  postgres_host: awx-postgres-15
+  postgres_port: 5432
+  postgres_db: awx
+  postgres_user: awx
+  postgres_password_secret: awx-postgres-password
+
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"

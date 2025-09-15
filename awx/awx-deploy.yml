@@ -1,0 +1,12 @@
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+  namespace: awx
+spec:
+  service_type: LoadBalancer   # biar dapet EXTERNAL-IP
+  ingress_type: none
+  hostname: awx.local          # opsional, kalau pakai ingress
+  admin_user: admin
+  admin_password_secret: awx-admin-password
